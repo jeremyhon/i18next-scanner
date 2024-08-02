@@ -1,5 +1,5 @@
 // Originally from: https://github.com/sderosiaux/acorn-jsx-walk
-import { simple as walk, base } from 'acorn-walk';
+import { simple as walk, base } from "acorn-walk";
 
 Object.assign(base, {
   FieldDefinition(node, state, callback) {
@@ -19,10 +19,10 @@ Object.assign(base, {
   },
 
   JSXElement(node, state, callback) {
-    node.openingElement.attributes.forEach(attribute => {
+    node.openingElement.attributes.forEach((attribute) => {
       callback(attribute, state);
     });
-    node.children.forEach(node => {
+    node.children.forEach((node) => {
       callback(node, state);
     });
   },
@@ -36,7 +36,7 @@ Object.assign(base, {
   },
 
   JSXFragment(node, state, callback) {
-    node.children.forEach(node => {
+    node.children.forEach((node) => {
       callback(node, state);
     });
   },
@@ -45,7 +45,7 @@ Object.assign(base, {
     callback(node.argument, state);
   },
 
-  JSXText() {}
+  JSXText() {},
 });
 
 export default (ast, options) => {

@@ -1,12 +1,12 @@
 /* eslint-disable import/no-import-module-exports */
-import fs from 'fs';
-import path from 'path';
-import eol from 'eol';
-import get from 'lodash/get';
-import includes from 'lodash/includes';
-import VirtualFile from 'vinyl';
-import through2 from 'through2';
-import Parser from './parser';
+import fs from "fs";
+import path from "path";
+import eol from "eol";
+import get from "lodash/get";
+import includes from "lodash/includes";
+import VirtualFile from "vinyl";
+import through2 from "through2";
+import Parser from "./parser";
 
 const transform = (parser, customTransform) => {
   return function _transform(file, enc, done) {
@@ -14,34 +14,34 @@ const transform = (parser, customTransform) => {
     const content = fs.readFileSync(file.path, enc);
     const extname = path.extname(file.path);
 
-    if (includes(get(options, 'attr.extensions'), extname)) {
+    if (includes(get(options, "attr.extensions"), extname)) {
       // Parse attribute (e.g. data-i18n="key")
       parser.parseAttrFromString(content, {
         transformOptions: {
-          filepath: file.path
-        }
+          filepath: file.path,
+        },
       });
     }
 
-    if (includes(get(options, 'func.extensions'), extname)) {
+    if (includes(get(options, "func.extensions"), extname)) {
       // Parse translation function (e.g. i18next.t('key'))
       parser.parseFuncFromString(content, {
         transformOptions: {
-          filepath: file.path
-        }
+          filepath: file.path,
+        },
       });
     }
 
-    if (includes(get(options, 'trans.extensions'), extname)) {
+    if (includes(get(options, "trans.extensions"), extname)) {
       // Look for Trans components in JSX
       parser.parseTransFromString(content, {
         transformOptions: {
-          filepath: file.path
-        }
+          filepath: file.path,
+        },
       });
     }
 
-    if (typeof customTransform === 'function') {
+    if (typeof customTransform === "function") {
       this.parser = parser;
       customTransform.call(this, file, enc, done);
       return;
@@ -55,7 +55,7 @@ const flush = (parser, customFlush) => {
   return function _flush(done) {
     const { options } = parser;
 
-    if (typeof customFlush === 'function') {
+    if (typeof customFlush === "function") {
       this.parser = parser;
       customFlush.call(this, done);
       return;
@@ -72,17 +72,18 @@ const flush = (parser, customFlush) => {
       Object.keys(namespaces).forEach((ns) => {
         const obj = namespaces[ns];
         const resPath = parser.formatResourceSavePath(lng, ns);
-        let text = JSON.stringify(obj, null, jsonIndent) + '\n';
+        let text = JSON.stringify(obj, null, jsonIndent) + "\n";
 
-        if (lineEnding === 'auto') {
+        if (lineEnding === "auto") {
           text = eol.auto(text);
-        } else if (lineEnding === '\r\n' || lineEnding === 'crlf') {
+        } else if (lineEnding === "\r\n" || lineEnding === "crlf") {
           text = eol.crlf(text);
-        } else if (lineEnding === '\n' || lineEnding === 'lf') {
+        } else if (lineEnding === "\n" || lineEnding === "lf") {
           text = eol.lf(text);
-        } else if (lineEnding === '\r' || lineEnding === 'cr') {
+        } else if (lineEnding === "\r" || lineEnding === "cr") {
           text = eol.cr(text);
-        } else { // Defaults to LF
+        } else {
+          // Defaults to LF
           text = eol.lf(text);
         }
 
@@ -96,10 +97,12 @@ const flush = (parser, customFlush) => {
           contents = new Buffer(text); // eslint-disable-line no-buffer-constructor
         }
 
-        this.push(new VirtualFile({
-          path: resPath,
-          contents: contents
-        }));
+        this.push(
+          new VirtualFile({
+            path: resPath,
+            contents: contents,
+          })
+        );
       });
     });
 

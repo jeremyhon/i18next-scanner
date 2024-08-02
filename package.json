@@ -1,31 +1,26 @@
 {
-  "name": "i18next-scanner",
-  "version": "4.5.0",
+  "name": "@jeremyhon/i18next-scanner",
+  "version": "1.0.0",
   "description": "Scan your code, extract translation keys/values, and merge them into i18n resource files.",
-  "homepage": "https://github.com/i18next/i18next-scanner",
+  "homepage": "https://github.com/jeremyhon/i18next-scanner",
   "author": "Cheton Wu <cheton@gmail.com>",
   "contributors": [
-    {
-      "name": "Cheton Wu",
-      "email": "cheton@gmail.com",
-      "url": "https://github.com/cheton"
-    }
+    "Cheton Wu <cheton@gmail.com> (https://github.com/cheton)",
+    "Jeremy Hon <jeremy.hon.gy@gmail.com> (https://github.com/jeremyhon)"
   ],
   "bin": {
-    "i18next-scanner": "./bin/cli.js"
+    "i18next-scanner": "bin/cli.js"
   },
   "main": "lib/index.js",
   "scripts": {
-    "prepublishOnly": "npm run eslint && npm run build && npm test",
+    "prepublishOnly": "npm run build && npm test",
     "build": "babel ./src --out-dir ./lib",
     "clean": "del lib .nyc_output",
-    "eslint": "eslint ./src",
-    "eslint-fix": "eslint --fix ./src ./test/*.js",
     "test": "jest --no-cache"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:i18next/i18next-scanner.git"
+    "url": "git+ssh://git@github.com/jeremyhon/i18next-scanner.git"
   },
   "license": "MIT",
   "engines": {
@@ -71,8 +66,7 @@
   "devDependencies": {
     "@babel/cli": "^7.17.10",
     "@babel/core": "^7.18.5",
-    "@babel/eslint-parser": "^7.18.2",
-    "@babel/eslint-plugin": "^7.17.7",
+    "@babel/helper-create-class-features-plugin": "^7.25.0",
     "@babel/plugin-transform-runtime": "^7.18.5",
     "@babel/preset-env": "^7.18.2",
     "@babel/preset-react": "^7.17.12",
@@ -83,12 +77,6 @@
     "codecov": "^3.8.3",
     "core-js": "^3.23.1",
     "del-cli": "^4.0.1",
-    "eslint": "^8.18.0",
-    "eslint-config-trendmicro": "^3.1.0",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-jest": "~26.5.3",
-    "eslint-plugin-jsx-a11y": "^6.5.1",
-    "eslint-plugin-react": "^7.30.0",
     "gulp": "^4.0.2",
     "gulp-tap": "^2.0.0",
     "gulp-util": "^3.0.8",
@@ -99,7 +87,8 @@
     "react-dom": "^18.0.0",
     "react-i18next": "^11.12.0",
     "sha1": "^1.1.1",
-    "text-table": "^0.2.0"
+    "text-table": "^0.2.0",
+    "tsconfig-paths": "^4.2.0"
   },
   "jest": {
     "setupFiles": [],
@@ -126,5 +115,13 @@
     "testPathIgnorePatterns": [],
     "testTimeout": 30000,
     "testEnvironment": "node"
+  },
+  "bugs": {
+    "url": "https://github.com/jeremyhon/i18next-scanner/issues"
+  },
+  "directories": {
+    "example": "examples",
+    "lib": "lib",
+    "test": "test"
   }
 }
